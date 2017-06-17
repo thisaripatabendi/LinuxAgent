@@ -1,0 +1,23 @@
+{
+  "name": "iot.per.device.stream.laptop",
+  "version": "1.0.0",
+  "nickName": "Laptop Data",
+  "description": "Laptop data received from agent",
+  "metaData": [
+    {"name":"owner","type":"STRING"},
+    {"name":"deviceType","type":"STRING"},
+    {"name":"deviceId","type":"STRING"},  
+    {"name":"time","type":"LONG"}
+  ],
+  "payloadData": [
+    {"name": "batterylevelsensor","type": "FLOAT"},
+    {"name": "batterystatussensor", "type": "FLOAT"},
+    {"name": "cpuusagesensor", "type": "FLOAT"},
+    {"name": "memoryspacesensor", "type": "FLOAT"},
+    {"name": "diskspacesensor", "type": "FLOAT"},
+    {"name": "loadaveragesensor", "type": "FLOAT"}
+  ]
+}
+	
+
+				                                    		

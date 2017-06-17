@@ -1,0 +1,100 @@
+{{unit "cdmf.unit.lib.rickshaw-graph"}}
+
+<div id="div-chart-sensorType1" data-websocketurlStream="{{websocketEndpointForStream1}}" data-deviceID="{{device.deviceIdentifier}}" data-sensorType="batterylevel">
+    <div class="chartWrapper" id="chartWrapper">
+        <div id="yAxisSensorType1" class="custom_y_axis">Battery level</div>
+        <div class="legend_container">
+            <div id="smoother" title="Smoothing"></div>
+            <div id="legend"></div>
+        </div>
+        <div id="chartSensorType1" class="custom_rickshaw_graph"></div>
+        <div class="custom_x_axis">Time</div>
+    </div>
+</div>
+<div id="div-chart-sensorType2" data-websocketurlStream="{{websocketEndpointForStream2}}" data-deviceID="{{device.deviceIdentifier}}" data-sensorType="batterystatus">
+    <div class="chartWrapper" id="chartWrapper">
+        <div id="yAxisSensorType2" class="custom_y_axis">Battery plugged in status</div>
+        <div class="legend_container">
+            <div id="smootherSensorType2" title="Smoothing"></div>
+            <div id="legendSensorType2"></div>
+        </div>
+        <div id="chartSensorType2" class="custom_rickshaw_graph"></div>
+        <div class="custom_x_axis">Time</div>
+    </div>
+</div>
+{{! cpuusage }}
+{{! pass device ID}}
+<div id="div-chart-sensorType3" data-websocketurlStream="{{websocketEndpointForStream3}}" data-deviceID="{{device.deviceIdentifier}}" data-sensorType="cpuusage">
+    <div class="chartWrapper" id="chartWrapper">
+        <div id="yAxisSensorType3" class="custom_y_axis">CPU usage</div>
+        <div class="legend_container">
+            <div id="smoother" title="Smoothing"></div>
+            <div id="legend"></div>
+        </div>
+        <div id="chartSensorType3" class="custom_rickshaw_graph"></div>
+        <div class="custom_x_axis">Time</div>
+    </div>
+</div>
+
+{{! new stats }}
+<div id="div-chart-sensorType4" data-websocketurlStream="{{websocketEndpointForStream4}}" data-deviceID="{{device.deviceIdentifier}}" data-sensorType="memoryusage">
+    <div class="chartWrapper" id="chartWrapper">
+        <div id="yAxisSensorType4" class="custom_y_axis">Memory usage (MB)</div>
+        <div class="legend_container">
+            <div id="smoother" title="Smoothing"></div>
+            <div id="legend"></div>
+        </div>
+        <div id="chartSensorType4" class="custom_rickshaw_graph"></div>
+        <div class="custom_x_axis">Time</div>
+    </div>
+</div>
+<div id="div-chart-sensorType5" data-websocketurlStream="{{websocketEndpointForStream5}}" data-deviceID="{{device.deviceIdentifier}}" data-sensorType="diskusage">
+    <div class="chartWrapper" id="chartWrapper">
+        <div id="yAxisSensorType5" class="custom_y_axis">Disk usage (MB)</div>
+        <div class="legend_container">
+            <div id="smoother" title="Smoothing"></div>
+            <div id="legend"></div>
+        </div>
+        <div id="chartSensorType5" class="custom_rickshaw_graph"></div>
+        <div class="custom_x_axis">Time</div>
+    </div>
+</div>
+<div id="div-chart-sensorType6" data-websocketurlStream="{{websocketEndpointForStream6}}" data-deviceID="{{device.deviceIdentifier}}" data-sensorType="loadaverage">
+    <div class="chartWrapper" id="chartWrapper">
+        <div id="yAxisSensorType6" class="custom_y_axis">Load average</div>
+        <div class="legend_container">
+            <div id="smoother" title="Smoothing"></div>
+            <div id="legend"></div>
+        </div>
+        <div id="chartSensorType6" class="custom_rickshaw_graph"></div>
+        <div class="custom_x_axis">Time</div>
+    </div>
+</div>
+
+<a class="padding-left"
+   href="{{@app.context}}/device/{{device.type}}/analytics?deviceId={{device.deviceIdentifier}}
+   &deviceName={{device.name}}">
+    <span class="fw-stack">
+        <i class="fw fw-ring fw-stack-2x"></i>
+        <i class="fw fw-statistics fw-stack-1x"></i>
+    </span> View Device Analytics
+</a>
+
+<br>
+
+<!-- device group page link -->
+<a class="padding-left"
+   href="{{@app.context}}/device/{{device.type}}/groupanalytics?deviceId={{device.deviceIdentifier}}
+   &deviceName={{device.name}}">
+    <span class="fw-stack">
+        <i class="fw fw-ring fw-stack-2x"></i>
+        <i class="fw fw-statistics fw-stack-1x"></i>
+    </span> View Linux Group Analytics
+</a>
+
+<!-- /statistics -->
+{{#zone "bottomJs"}}
+    {{js "js/moment.min.js"}}
+    {{js "js/socket.io.min.js"}}
+    {{js "js/device-stats.js"}}
+{{/zone}}

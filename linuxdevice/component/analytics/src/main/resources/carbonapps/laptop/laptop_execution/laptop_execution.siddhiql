@@ -1,0 +1,52 @@
+/* Enter a unique ExecutionPlan */
+@Plan:name('laptop_execution')
+
+/* Enter a unique description for ExecutionPlan */
+-- @Plan:description('laptop_execution')
+
+/* define streams/tables and write queries here ... */
+
+@Import('iot.per.device.stream.laptop:1.0.0')
+define stream laptop (meta_owner string, meta_deviceType string,meta_deviceId string, meta_time long, batterylevelsensor float, batterystatussensor float, cpuusagesensor float, memoryspacesensor float, diskspacesensor float, loadaveragesensor float);
+
+@Export('iot.per.device.stream.laptop.batterylevel:1.0.0')
+define stream batterylevel (meta_owner string, meta_deviceType string, meta_deviceId string, meta_time long, batterylevel float);
+
+@Export('iot.per.device.stream.laptop.batterystatus:1.0.0')
+define stream batterystatus (meta_owner string, meta_deviceType string, meta_deviceId string, meta_time long, batterystatus float);
+
+@Export('iot.per.device.stream.laptop.cpuusage:1.0.0')
+define stream cpuusage (meta_owner string, meta_deviceType string, meta_deviceId string, meta_time long, cpuusage float);
+
+@Export('iot.per.device.stream.laptop.memoryspace:1.0.0')
+define stream memoryspace (meta_owner string, meta_deviceType string, meta_deviceId string, meta_time long, memoryspace float);
+
+@Export('iot.per.device.stream.laptop.diskspace:1.0.0')
+define stream diskspace (meta_owner string, meta_deviceType string, meta_deviceId string, meta_time long, diskspace float);
+
+@Export('iot.per.device.stream.laptop.loadaverage:1.0.0')
+define stream loadaverage (meta_owner string, meta_deviceType string, meta_deviceId string, meta_time long, loadaverage float);
+
+from laptop
+select meta_owner, 'laptop' as meta_deviceType, meta_deviceId, time:timestampInMilliseconds() as meta_time, batterylevelsensor as batterylevel
+insert into batterylevel;
+
+from laptop
+select meta_owner, 'laptop' as meta_deviceType, meta_deviceId, time:timestampInMilliseconds() as meta_time, batterystatussensor as batterystatus
+insert into batterystatus;
+
+from laptop
+select meta_owner, 'laptop' as meta_deviceType, meta_deviceId, time:timestampInMilliseconds() as meta_time, cpuusagesensor as cpuusage
+insert into cpuusage;
+
+from laptop
+select meta_owner, 'laptop' as meta_deviceType, meta_deviceId, time:timestampInMilliseconds() as meta_time, memoryspacesensor as memoryspace
+insert into memoryspace;
+
+from laptop
+select meta_owner, 'laptop' as meta_deviceType, meta_deviceId, time:timestampInMilliseconds() as meta_time, diskspacesensor as diskspace
+insert into diskspace;
+
+from laptop
+select meta_owner, 'laptop' as meta_deviceType, meta_deviceId, time:timestampInMilliseconds() as meta_time, loadaveragesensor as loadaverage
+insert into loadaverage;
