@@ -10,12 +10,12 @@
     {"name":"time","type":"LONG"}
   ],
   "payloadData": [
-    {"name": "batterylevelsensor","type": "FLOAT"},
-    {"name": "batterystatussensor", "type": "FLOAT"},
-    {"name": "cpuusagesensor", "type": "FLOAT"},
-    {"name": "memoryspacesensor", "type": "FLOAT"},
-    {"name": "diskspacesensor", "type": "FLOAT"},
-    {"name": "loadaveragesensor", "type": "FLOAT"}
+    {"name": "batteryinfo","type": "STRING"},
+    {"name": "cpuinfo", "type": "STRING"},
+    {"name": "memoryinfo", "type": "STRING"},
+    {"name": "diskinfo", "type": "STRING"},
+    {"name": "networkinfo", "type": "STRING"},
+    {"name": "diskioinfo", "type": "STRING"}
   ]
 }
 	
