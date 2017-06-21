@@ -278,18 +278,40 @@ function drawGraph_linuxdevice(from, to)
     }
 
     function drawLineGraph(data, sensorType, deviceIndex, graphConfig, graph) {
+        var previousPointValue = 0;
+        var currentPointValue = 0;
         if (data.length === 0 || data.length === undefined) {
             return;
         }
         var chartData = [];
-        for (var i = 0; i < data.length; i++) {
-            chartData.push(
-                {
-                    x: parseInt(data[i].values.meta_time) - tzOffset,
-                    y: parseInt(data[i].values[sensorType])
-                }
-            );
+        if(sensorType == sensorType2){
+            for (var i = 0; i < data.length; i++) {
+                currentPointValue = data[i].values[sensorType];
+                chartData.push(
+                    {
+                        x: parseInt(data[i].values.meta_time) - tzOffset,
+                        y: parseInt(previousPointValue)
+                    }
+                );
+                chartData.push(
+                    {
+                        x: parseInt(data[i].values.meta_time) - tzOffset,
+                        y: parseInt(currentPointValue)
+                    }
+                );
+                previousPointValue = currentPointValue;
+            }
+        }else{
+            for (var i = 0; i < data.length; i++) {
+                chartData.push(
+                    {
+                        x: parseInt(data[i].values.meta_time) - tzOffset,
+                        y: parseInt(data[i].values[sensorType])
+                    }
+                );
+            }
         }
+
         graphConfig.series[deviceIndex].data = chartData;
         graph.update();
     }
