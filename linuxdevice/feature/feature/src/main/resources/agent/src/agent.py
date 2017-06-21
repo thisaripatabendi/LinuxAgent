@@ -32,7 +32,7 @@ import mqttConnector
 import running_mode
 from dataCollector import *
 
-PUSH_INTERVAL = 5000  # time interval between successive data pushes in seconds
+#PUSH_INTERVAL = 5000  # time interval between successive data pushes in seconds
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #       Logger defaults
@@ -218,7 +218,8 @@ class DataReaderThread(object):
                 if running_mode.RUNNING_MODE == 'N':
                     # time.sleep(PUSH_INTERVAL)
                     collectData()
-                    time.sleep(15)
+                    global PUSH_INTERVAL
+                    time.sleep(PUSH_INTERVAL)
                 else:
                     # generate random values
                     generateRandoms()
@@ -250,17 +251,33 @@ def main():
     UtilsThread()
     # registerDeviceIP()  # Call the register endpoint and register Device IP
     # ListenHTTPServerThread()  # starts an HTTP Server that listens for operational commands to switch ON/OFF Led
+
+    global PUSH_INTERVAL
+    try:
+        x = raw_input("Whats the time-interval (in seconds) between successive Data-Pushes to the WSO2-DC (ex: '60' indicates 1 minute) > ")
+        PUSH_INTERVAL = int(x)
+        print 'Setting data-push interval to ' + str(PUSH_INTERVAL) + ' seconds'
+        print " "
+    except ValueError:
+        if len(x) == 0:
+            print "Input needs to be an integer indicating the number seconds between successive data-pushes. 15 will be taken as default value"
+            print " "
+            PUSH_INTERVAL = 15
+        else:
+            # print "Oops!  That was no valid number.  Try again..."
+            print "Input needs to be an integer indicating the number seconds between successive data-pushes. 15 will be taken as default value"
+            print " "
+            PUSH_INTERVAL = 15
+
     SubscribeToMQTTQueue()  # connects and subscribes to an MQTT Queue that receives MQTT commands from the server
     DataReaderThread()  # initiates and runs the thread to continuously read temperature from DHT Sensor
-
-    # test
 
     time.sleep(10)
     while True:
         try:
             if iotUtils.BATTERY_LEVEL > 0:  # Push data only if there had been a successful temperature read
                 connectAndPushData()  # Push Sensor (Temperature) data to WSO2 BAM
-                time.sleep(15)
+                time.sleep(PUSH_INTERVAL)
 
         except (KeyboardInterrupt, Exception) as e:
             print "RASPBERRY_STATS: Exception in RaspberryAgentThread (either KeyboardInterrupt or Other)"
